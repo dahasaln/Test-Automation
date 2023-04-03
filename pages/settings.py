@@ -17,17 +17,16 @@ fake_password = fake.password()
 fake_login = fake.user_name()
 fake_email = fake.email()
 
-valid_firstname = os.getenv('first_name')
-valid_lastname = os.getenv('last_name')
+
 valid_phone = os.getenv('phone')
 valid_login = os.getenv('login')
 valid_password = os.getenv('password')
 invalid_ls = '352010007897'
 
-
-valid_email = 'qnsirw@wuuvo.com'
-
-valid_pass_reg = 'w*PsrcEa*7'
+valid_firstname_reg = 'Владилен'
+valid_lastname_reg = 'Лукина'
+valid_email = '80sqi2o@wuuvo.com'
+valid_pass_reg = '&xzHnrrr06'
 
 
 def generate_string_rus(n):
