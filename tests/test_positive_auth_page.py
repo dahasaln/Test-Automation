@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from pages.auth import AuthPage
 from pages.locators import AuthLocators
 from pages.settings import valid_phone, valid_login, valid_password, \
-    invalid_ls, valid_email, valid_pass_reg, fake_email, valid_firstname, valid_lastname
+    invalid_ls, valid_email, valid_pass_reg, fake_email, valid_firstname_reg, valid_lastname_reg
 
 
 # @pytest.mark.auth
@@ -57,7 +57,7 @@ def test_auth_page_email_valid(browser):
     page.btn_click_enter()
     page.driver.save_screenshot('auth_by_email.png')
     print('Авторизация прошла успешно!')
-    print(f"{valid_firstname} {valid_lastname},\nВаш email: '{str(valid_email)}'\nВаш пароль: '{valid_pass_reg}'\n")
+    print(f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email: '{str(valid_email)}'\nВаш пароль: '{valid_pass_reg}'\n")
     with open('my_cookies.txt', 'wb') as cookies:
         pickle.dump(browser.get_cookies(), cookies)
 
