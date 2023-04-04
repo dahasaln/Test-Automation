@@ -32,7 +32,7 @@ def test_auth_page_fake_email(browser):
     page = AuthPage(browser)
     page.enter_username(fake_email)
     page.enter_password(valid_pass_reg)
-    time.sleep(20) # время на ввод капчи при ее появлении
+    time.sleep(25) # время на ввод капчи при ее появлении
     page.btn_click_enter()
     browser.implicitly_wait(10)
 

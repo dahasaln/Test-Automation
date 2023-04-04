@@ -1,5 +1,6 @@
 
 """Действующие данные для авторизации в системе"""
+"""Действующие данные для авторизации в системе"""
 import os
 from dotenv import load_dotenv
 from faker import Faker
@@ -23,18 +24,17 @@ valid_login = os.getenv('login')
 valid_password = os.getenv('password')
 invalid_ls = '352010007897'
 
-valid_firstname_reg = 'Владилен'
-valid_lastname_reg = 'Лукина'
-valid_email = '80sqi2o@wuuvo.com'
-valid_pass_reg = '&xzHnrrr06'
-
+valid_firstname_reg = 'Денис'
+valid_lastname_reg = 'Горбачева'
+valid_email = 'e0jw7tou2jg@bheps.com'
+valid_pass_reg = '(6B!1Mz!bI'
 
 def generate_string_rus(n):
-    return 'б' * n
+    return 'я' * n
 
 
 def generate_string_en(n):
-    return 'x' * n
+    return 's' * n
 
 
 def english_chars():
@@ -45,9 +45,7 @@ def russian_chars():
     return 'абвгдеёжзиклмнопрстуфхцчшщъыьэюя'
 
 
-def chinese_chars():    # 20 популярных китайских иероглифов
-    return '的一是不了人我在有他这为之大来以个中上们'
-
-
 def special_chars():
     return f'{string.punctuation}'
+
+

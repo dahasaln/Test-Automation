@@ -1,4 +1,4 @@
-#Проверка регистрации на сайте
+#Проверка регистрации на сайте по почте и паролю
 from pages.RegEmail import RegEmail
 from pages.auth import *
 from selenium.webdriver.common.by import By
@@ -6,16 +6,24 @@ from pages.settings import fake_firstname, fake_lastname, fake_password
 
 import time
 import pytest
+@pytest.mark.reg
+@pytest.mark.positive
 
+def test_reg_page_open(browser):
+    """ Проверка страницы регистрации - дымовое тестирование """
+    page = AuthPage(browser)
+    page.enter_reg_page()
 
+    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+@pytest.mark.reg
+@pytest.mark.positive
 class TestRegistration:
     """Проверка регистрации на сайте"""
     # Выносим данные в тело класса для доступа к значениям переменных из всех функций класса:
     result_email, status_email = RegEmail().get_api_email()  # запрос на получение валидного почтового ящика
     email_reg = result_email[0]  # из запроса получаем валидный email
 
-    @pytest.mark.reg
-    @pytest.mark.positive
+
     def test_get_registration_valid(self, browser):
         """Валидный вариант регистрации при использовании email и получения кода для входа на почту.
          Используем виртуальный почтовый ящик '1secmail.com' и получаем данные через GET запросы.
@@ -83,7 +91,7 @@ class TestRegistration:
         browser.implicitly_wait(30)
 
         """Проверяем, что регистрация пройдена и пользователь перенаправлен в личный кабинет"""
-        assert page.get_relative_link() == '/account_b2c/page', 'Регистрация не пройдена'
+        assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
         time.sleep(10)
         page.driver.save_screenshot('reg.png')
 
@@ -107,3 +115,5 @@ class TestRegistration:
                     lines.append(line)
         with open(r"../pages/Settings.py", 'w', encoding='utf8') as file:
             file.writelines(lines)
+
+
