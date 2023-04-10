@@ -7,14 +7,15 @@ from selenium.webdriver.common.by import By
 from pages.settings import fake_firstname, fake_lastname, fake_password
 
 
-# @pytest.mark.reg
-# @pytest.mark.positive
+@pytest.mark.reg
+@pytest.mark.positive
 
-# def test_reg_page_open(browser):
-#     """ Проверка страницы регистрации - дымовое тестирование """
-#     page = AuthPage(browser)
-#     page.enter_reg_page()
-#     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+def test_reg_page_open(browser):
+    """ Проверка страницы регистрации - дымовое тестирование """
+    page = AuthPage(browser)
+    page.enter_reg_page()
+    print(f" \nCurrently  URL is: {browser.current_url}")
+    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
 
 @pytest.mark.reg
 @pytest.mark.positive
