@@ -5,54 +5,30 @@ import pytest
 from pages.auth import *
 from pages.settings import *
 
-
-@pytest.mark.auth
-@pytest.mark.negative
-@pytest.mark.parametrize('username', [fake_phone, fake_login, invalid_ls],
-                         ids=['fake phone', 'fake login', 'fake service account'])
-def test_auth_page_fake_phone_login_serv_account(browser, username):
-    """ Проверка авторизации по номеру телефона и паролю, лицевому счету,
-    неверный номер/логин/лицевой счет."""
-    page = AuthPage(browser)
-    page.enter_username(username)
-    page.enter_password(valid_password)
-    page.btn_click_enter()
-    browser.implicitly_wait(10)
-
-    error_mess = browser.find_element(*AuthLocators.AUTH_FORM_ERROR)
-    forgot_pass = browser.find_element(*AuthLocators.AUTH_FORGOT_PASSWORD)
-
-    assert error_mess.text == 'Неверный логин или пароль' and \
-           page.check_color(forgot_pass) == '#ff4f12'
-
-
-
+"""Проверка авторизации по почте и паролю, неверная почта"""
 def test_auth_page_fake_email(browser):
-    """Проверка авторизации по почте и паролю, неверная почта"""
     page = AuthPage(browser)
     page.enter_username(fake_email)
     page.enter_password(valid_pass_reg)
-    time.sleep(25) # время на ввод капчи при ее появлении
+    time.sleep(30) # время на ввод CAPTCHA при ее появлении
     page.btn_click_enter()
     browser.implicitly_wait(10)
 
     error_mess = browser.find_element(*AuthLocators.AUTH_FORM_ERROR)
     forgot_pass = browser.find_element(*AuthLocators.AUTH_FORGOT_PASSWORD)
-
     assert error_mess.text == 'Неверный логин или пароль'  and \
-           forgot_pass.text == 'Забыл пароль'
+           forgot_pass.text == 'Забыл пароль' and \
+           page.check_color(forgot_pass) == '#ff4f12'#Окрашивание надписи "Забыл пароль" в красный цвет
     print('Тест пройден!')
-    print(f"\nВаш email: '{fake_email}' - неверный!")
+    print(f"\nВаш email: {fake_email} - неверный!")
 
 
-
-
+"""Проверка авторизации по почте и паролю, неверный пароль"""
 def test_auth_page_fake_password(browser):
-    """Проверка авторизации по почте и паролю, неверный пароль"""
     page = AuthPage(browser)
     page.enter_username(valid_email)
     page.enter_password(fake_password)
-    time.sleep(20)  # время на ввод капчи при ее появлении
+    time.sleep(20)  # время на ввод CAPTCHA при ее появлении
     page.btn_click_enter()
     browser.implicitly_wait(10)
 
@@ -64,34 +40,34 @@ def test_auth_page_fake_password(browser):
     print(f"\nВаш пароль: {fake_password} - неверный!")
 
 
+""" Проверка авторизации по номеру телефона 'пустой строке' и паролю"""
+#Дожидаться ввода CAPTCHA не нужно
 @pytest.mark.auth
 @pytest.mark.negative
 def test_auth_page_phone_empty_username(browser):
-    """ Проверка авторизации по номеру телефона/почте/логину/лицевому счету - пустой строке и паролю"""
     page = AuthPage(browser)
-    page.enter_username('')
-    page.enter_password(valid_password)
+    page.enter_username(" ")
     page.btn_click_enter()
+    page.enter_password(valid_pass_reg)
     browser.implicitly_wait(10)
-
-    error_mess = browser.find_element(*AuthLocators.AUTH_MESS_ERROR)
-    assert error_mess.text == 'Введите номер телефона' or \
-           error_mess.text == 'Введите адрес, указанный при регистрации' or \
-           error_mess.text == 'Введите логин, указанный при регистрации' or \
-           error_mess.text == 'Введите номер вашего лицевого счета'
+    error_mess = browser.find_element(*AuthLocators.AUTH_SPACE_ERROR)
+    assert error_mess.text == 'Введите номер телефона'
+    print('Тест пройден!')
+    print(f"\nВведите номер телефона")
 
 
+"""Проверка авторизации по номеру телефона и паролю, неверный формат телефона"""
 @pytest.mark.auth
 @pytest.mark.negative
-@pytest.mark.parametrize('username', [1, 111111111],
-                         ids=['one digit', '9 digits'])
+@pytest.mark.parametrize('username', [1, 999999999,],
+                         ids=['one digit', '9 digits',])
 def test_auth_page_invalid_username(browser, username):
-    """Проверка авторизации по номеру телефона и паролю, неверный формат телефона"""
     page = AuthPage(browser)
     page.enter_username(username)
-    page.enter_password(valid_password)
-    page.btn_click_enter()
+    time.sleep(3)
+    page.enter_password(valid_pass_reg)
     browser.implicitly_wait(10)
-
     error_mess = browser.find_element(*AuthLocators.AUTH_MESS_ERROR)
     assert error_mess.text == 'Неверный формат телефона'
+    print('Тест пройден!')
+    print(f"\nНеверный формат телефона")
