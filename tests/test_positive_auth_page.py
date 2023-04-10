@@ -1,15 +1,15 @@
+import pytest
 import pickle
 import time
-import pytest
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from pages.locators import AuthLocators
 from pages.auth import AuthPage
-
 from pages.settings import valid_email, valid_pass_reg,valid_firstname_reg, valid_lastname_reg
 
-def test_active_tab(browser):
-    """Проверка автоматического переключения табов тел/почта/логин/лицевой счет"""
+
+"""TRK-005,TRK-006,TRK-007,TRK-008 Проверка кликабельности табов тел/почта/логин/лицевой счет"""
+@pytest.mark.auth
+@pytest.mark.positive
+def test_switching_tab(browser):
     page = AuthPage(browser)
     browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_MAIL).click()
     time.sleep(2)
@@ -21,27 +21,49 @@ def test_active_tab(browser):
     time.sleep(2)
 
     assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_MAIL).text == 'Почта'
+    print('\nTRK-005')
     assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_PHON).text == 'Телефон'
+    print('TRK-006')
     assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_LOGIN).text == 'Логин'
+    print('TRK-007')
     assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_LS).text == 'Лицевой счёт'
+    print('TRK-008')
 
-def test_auth_page_email_valid(browser):
-    """Проверка авторизации по почте и паролю"""
+
+
+"""TRK-009-1,TRK-009-2,TRK-009-3,TRK-009-4 Проверка автоматического переключения табов тел/почта/логин/лицевой счет"""
+@pytest.mark.auth
+@pytest.mark.positive
+@pytest.mark.parametrize('username', ['+79167777777', valid_email, 'fake_login', '352010008899'],
+                         ids=['phone', 'email', 'login', 'ls'])
+def test_active_tab(browser, username):
+
     page = AuthPage(browser)
-    page.enter_username(valid_email)
+    page.enter_username(username)
+
     page.enter_password(valid_pass_reg)
-    time.sleep(30) # на случай появления Captcha, необходимости ее ввода вручную
-    page.btn_click_enter()
-    page.driver.save_screenshot('auth_by_email.png')
-    print('Авторизация прошла успешно!')
-    print(f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email подтвержден: '{str(valid_email)}'\nВаш пароль подтвержден: '{valid_pass_reg}'\n")
-    with open('my_cookies.txt', 'wb') as cookies:
-        pickle.dump(browser.get_cookies(), cookies)
 
-    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/authenticate'
+    if username == '+79167777777':
+        time.sleep(2)
+        assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Телефон'
+        print('TRK-009-1')
+    elif username == valid_email:
+        time.sleep(2)
+        assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Почта'
+        print('TRK-009-2')
+    elif username == 'fake_login':
+        time.sleep(2)
+        assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Логин'
+        print('TRK-009-3')
+    else:
+        time.sleep(2)
+        assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Лицевой счёт'
+        print('TRK-009-4')
 
-#Проверка переходов по ссылкам социальных сетей
-#VK
+
+
+
+"""TRK-010 Проверка перехода по ссылкам социальных сетей VK"""
 def test_jump_to_links_VK(browser):
     page = AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
@@ -49,10 +71,11 @@ def test_jump_to_links_VK(browser):
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_VK)
-    print(f"Name Logo: {logo.text}")
+    print(f"TRK-010 Name Logo: {logo.text}")
     time.sleep(2)
     assert browser.find_element(*AuthLocators.AUTH_LOG_VK).text == 'ВКонтакте'
-    #OK
+
+"""TRK-011 Проверка перехода по ссылкам социальных сетей OK"""
 def test_jump_to_links_OK(browser):
     page = AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
@@ -60,9 +83,12 @@ def test_jump_to_links_OK(browser):
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_OK)
-    print(f"Name Logo: {logo.text}")
+    print(f"TRK-011 Name Logo: {logo.text}")
     time.sleep(2)
     assert browser.find_element(*AuthLocators.AUTH_LOG_OK).text == 'Одноклассники'
+
+
+"""TRK-012 Проверка перехода по ссылкам социальных сетей MAIL"""
 def test_jump_to_links_MAIL(browser):
     page = AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
@@ -70,29 +96,56 @@ def test_jump_to_links_MAIL(browser):
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_MAIL)
-    print(f"Name Logo: {logo.text}")
+    print(f"TRK-012 Name Logo: {logo.text}")
     time.sleep(2)
     assert browser.find_element(*AuthLocators.AUTH_LOG_MAIL).text == 'Мой Мир@Mail.Ru'
-def test_jump_to_links_GOOGLE(browser):
-    page = AuthPage(browser)
 
+"""TRK-013 Проверка перехода по ссылкам социальных сетей GOOGLE"""
+def test_jump_to_links_(browser):
+    AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators.AUTH_BTN_GOOGLE).click()
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_GOOGLE)
-    print(f"Name Logo: {logo.text}")
+    print(f"TRK-013 Name Logo: {logo.text}")
     time.sleep(2)
     assert browser.find_element(*AuthLocators.AUTH_LOG_GOOGLE).text == 'Войдите в аккаунт Google'
-def test_jump_to_links_YA(browser):#БАГ!!! Нужно кликать 2 раза. dblclick- не помогает.
-    page = AuthPage(browser)
+
+"""TRK-014 Проверка перехода по ссылкам социальных сетей YANDEX """
+def test_jump_to_links_YA(browser):
+    AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators.AUTH_BTN_YA).click()
     time.sleep(2)
-    browser.find_element(*AuthLocators.AUTH_BTN_YA).click()
+    browser.find_element(*AuthLocators.AUTH_BTN_YA).click()# Нужно кликать 2 раза. dblclick- не помогает.
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_YA)
-    print(f"Name Logo: {logo.text}")
+    print(f"TRK-014 Name Logo: {logo.text}")
     time.sleep(2)
     assert browser.find_element(*AuthLocators.AUTH_LOG_YA).text == 'Войдите с Яндекс ID'
+
+
+"""TRK-022 Проверка Авторизации по почте и паролю. """
+def test_auth_page_email_valid(browser):
+    page = AuthPage(browser)
+    page.enter_username(valid_email)
+    page.enter_password(valid_pass_reg)
+    time.sleep(30)  # время необходимое для ввода Captcha вручную
+    page.btn_click_enter()
+    page.driver.save_screenshot('auth_by_email.png')
+    print('TRK-022 Авторизация прошла успешно!')
+    print(
+        f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email подтвержден: '{str(valid_email)}'\nВаш пароль подтвержден: '{valid_pass_reg}'\n")
+    with open('my_cookies.txt', 'wb') as cookies:
+        pickle.dump(browser.get_cookies(), cookies)
+
+    assert page.get_relative_link() == '/account_b2c/page'
+
+
+
+
+
+
+
