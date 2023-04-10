@@ -10,7 +10,7 @@ from pages.settings import valid_email, valid_pass_reg,valid_firstname_reg, vali
 @pytest.mark.auth
 @pytest.mark.positive
 def test_switching_tab(browser):
-    page = AuthPage(browser)
+    AuthPage(browser)
     browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_MAIL).click()
     time.sleep(2)
     browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_PHON).click()
@@ -38,7 +38,7 @@ def test_switching_tab(browser):
                          ids=['phone', 'email', 'login', 'ls'])
 def test_active_tab(browser, username):
 
-    page = AuthPage(browser)
+    page  = AuthPage(browser)
     page.enter_username(username)
 
     page.enter_password(valid_pass_reg)
@@ -65,7 +65,7 @@ def test_active_tab(browser, username):
 
 """TRK-010 Проверка перехода по ссылкам социальных сетей VK"""
 def test_jump_to_links_VK(browser):
-    page = AuthPage(browser)
+    AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators. AUTH_BTN_VK).click()
     time.sleep(2)
@@ -77,7 +77,7 @@ def test_jump_to_links_VK(browser):
 
 """TRK-011 Проверка перехода по ссылкам социальных сетей OK"""
 def test_jump_to_links_OK(browser):
-    page = AuthPage(browser)
+    AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators.AUTH_BTN_OK).click()
     time.sleep(2)
@@ -90,7 +90,7 @@ def test_jump_to_links_OK(browser):
 
 """TRK-012 Проверка перехода по ссылкам социальных сетей MAIL"""
 def test_jump_to_links_MAIL(browser):
-    page = AuthPage(browser)
+    AuthPage(browser)
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators.AUTH_BTN_MAIL).click()
     time.sleep(2)
@@ -142,6 +142,17 @@ def test_auth_page_email_valid(browser):
         pickle.dump(browser.get_cookies(), cookies)
 
     assert page.get_relative_link() == '/account_b2c/page'
+
+
+""" Проверка страницы регистрации - дымовое тестирование """
+@pytest.mark.reg
+@pytest.mark.positive
+def test_reg_page_open(browser):
+
+    page = AuthPage(browser)
+    page.enter_reg_page()
+
+    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
 
 
 
