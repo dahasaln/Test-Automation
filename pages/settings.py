@@ -15,19 +15,16 @@ fake_lastname = fake_ru.last_name()
 fake_phone = fake_ru.phone_number()
 fake = Faker()
 fake_password = fake.password()
-fake_login = fake.user_name()
 fake_email = fake.email()
+fake_login = fake.user_name()
 
-
-valid_phone = os.getenv('phone')
-valid_login = os.getenv('login')
+invalid_ls = '352010008899'
 valid_password = os.getenv('password')
-invalid_ls = '352010007897'
 
-valid_firstname_reg = 'Денис'
-valid_lastname_reg = 'Горбачева'
-valid_email = 'e0jw7tou2jg@bheps.com'
-valid_pass_reg = '(6B!1Mz!bI'
+valid_firstname_reg = 'Касьян'
+valid_lastname_reg = 'Фокин'
+valid_email = 'gp789m082@wuuvo.com'
+valid_pass_reg = 'IX3R6i@R^o'
 
 def generate_string_rus(n):
     return 'я' * n
@@ -47,5 +44,32 @@ def russian_chars():
 
 def special_chars():
     return f'{string.punctuation}'
+
+
+
+def alternative_keyboard():
+    return '☺☻♥♦♣♠•◘'
+def japanese_hieroglyph():#Японские иероглифы
+    return   '原千五百秋瑞'
+def chinese_character():# Китайсике иероглифы
+    return   '龍門大酒家'
+def XSS_admixture_HTML(): #Тестирование на безопасность XSS примесь HTML
+    return '<IMG src="#">'
+def safety_XSS(): #Тестирование на безопасность XSS инъекция
+    return    '<script>alert("Поле input уязвимо!")</script>|'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
