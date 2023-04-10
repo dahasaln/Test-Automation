@@ -153,6 +153,13 @@ def test_reg_page_open(browser):
     page.enter_reg_page()
 
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+""" Проверка страницы регистрации - дымовое тестирование """
+@pytest.mark.reg
+@pytest.mark.positive
+def test_auth_page_open(browser):
+    page = AuthPage(browser)
+    print(f"\nCurrently  URL is: {browser.current_url}")
+    assert page.get_relative_link() == '/auth/realms/b2c/protocol/openid-connect/auth'
 
 
 
