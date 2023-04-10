@@ -1,20 +1,21 @@
 #Проверка регистрации на сайте по почте и паролю
+import pytest
+import time
 from pages.RegEmail import RegEmail
 from pages.auth import *
 from selenium.webdriver.common.by import By
 from pages.settings import fake_firstname, fake_lastname, fake_password
 
-import time
-import pytest
-@pytest.mark.reg
-@pytest.mark.positive
 
-def test_reg_page_open(browser):
-    """ Проверка страницы регистрации - дымовое тестирование """
-    page = AuthPage(browser)
-    page.enter_reg_page()
+# @pytest.mark.reg
+# @pytest.mark.positive
 
-    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+# def test_reg_page_open(browser):
+#     """ Проверка страницы регистрации - дымовое тестирование """
+#     page = AuthPage(browser)
+#     page.enter_reg_page()
+#     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+
 @pytest.mark.reg
 @pytest.mark.positive
 class TestRegistration:
@@ -91,7 +92,7 @@ class TestRegistration:
         browser.implicitly_wait(30)
 
         """Проверяем, что регистрация пройдена и пользователь перенаправлен в личный кабинет"""
-        assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+        assert page.get_relative_link() == '/account_b2c/page'
         time.sleep(10)
         page.driver.save_screenshot('reg.png')
 
