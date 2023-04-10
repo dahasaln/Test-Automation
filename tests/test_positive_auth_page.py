@@ -4,7 +4,13 @@ import time
 from pages.locators import AuthLocators
 from pages.auth import AuthPage
 from pages.settings import valid_email, valid_pass_reg,valid_firstname_reg, valid_lastname_reg
-
+""" TRK-001 Проверка страницы авторизации - дымовое тестирование """
+@pytest.mark.reg
+@pytest.mark.positive
+def test_auth_page_open(browser):
+    page = AuthPage(browser)
+    print(f"TRK-001 \nCurrently  URL is: {browser.current_url}")
+    assert page.get_relative_link() == '/auth/realms/b2c/protocol/openid-connect/auth'
 
 """TRK-005,TRK-006,TRK-007,TRK-008 Проверка кликабельности табов тел/почта/логин/лицевой счет"""
 @pytest.mark.auth
@@ -153,13 +159,8 @@ def test_reg_page_open(browser):
     page.enter_reg_page()
 
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
-""" Проверка страницы регистрации - дымовое тестирование """
-@pytest.mark.reg
-@pytest.mark.positive
-def test_auth_page_open(browser):
-    page = AuthPage(browser)
-    print(f"\nCurrently  URL is: {browser.current_url}")
-    assert page.get_relative_link() == '/auth/realms/b2c/protocol/openid-connect/auth'
+
+
 
 
 
