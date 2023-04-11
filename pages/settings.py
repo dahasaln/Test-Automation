@@ -1,6 +1,3 @@
-
-"""Действующие данные для авторизации в системе"""
-"""Действующие данные для авторизации в системе"""
 import os
 from dotenv import load_dotenv
 from faker import Faker
@@ -9,11 +6,11 @@ load_dotenv()
 
 
 """Фейковые данные для авторизации в системе"""
-fake_ru = Faker('ru_RU')
+fake_ru = Faker('ru_RU')#параметры с русским алфавитом
 fake_firstname = fake_ru.first_name()
 fake_lastname = fake_ru.last_name()
 fake_phone = fake_ru.phone_number()
-fake = Faker()
+fake = Faker()#параметры с ангилийским алфавитом
 fake_password = fake.password()
 fake_email = fake.email()
 fake_login = fake.user_name()
@@ -21,31 +18,25 @@ fake_login = fake.user_name()
 invalid_ls = '352010008899'
 valid_password = os.getenv('password')
 
-valid_firstname_reg = 'Касьян'
-valid_lastname_reg = 'Фокин'
-valid_email = 'gp789m082@wuuvo.com'
-valid_pass_reg = 'IX3R6i@R^o'
+valid_firstname_reg = 'Валентина'
+valid_lastname_reg = 'Захаров'
+valid_email = '1rhky4l3@bheps.com'
+valid_pass_reg = 'Ow9Mu#m_*^'
 
 def generate_string_rus(n):
     return 'я' * n
 
-
 def generate_string_en(n):
     return 's' * n
-
 
 def english_chars():
     return 'qwertyuiopasdfghjklzxcvbnm'
 
-
 def russian_chars():
     return 'абвгдеёжзиклмнопрстуфхцчшщъыьэюя'
 
-
 def special_chars():
-    return f'{string.punctuation}'
-
-
+    return f'{string.punctuation}' #Специальные симовлы
 
 def alternative_keyboard():
     return '☺☻♥♦♣♠•◘'
