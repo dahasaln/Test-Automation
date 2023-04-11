@@ -1,4 +1,3 @@
-#Проверка регистрации на сайте по почте и паролю
 import pytest
 import time
 from pages.RegEmail import RegEmail
@@ -7,14 +6,16 @@ from selenium.webdriver.common.by import By
 from pages.settings import fake_firstname, fake_lastname, fake_password
 
 
+
+""" TRK-015 Проверка открытия страницы Регистрация - дымовое тестирование """
 @pytest.mark.reg
 @pytest.mark.positive
 
 def test_reg_page_open(browser):
-    """ Проверка страницы регистрации - дымовое тестирование """
+
     page = AuthPage(browser)
     page.enter_reg_page()
-    print(f" \nCurrently  URL is: {browser.current_url}")
+    print(f"TRK-015 Открыта страница Регистрация.\nCurrently  URL is: {browser.current_url}")
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
 
 @pytest.mark.reg
@@ -25,13 +26,11 @@ class TestRegistration:
     result_email, status_email = RegEmail().get_api_email()  # запрос на получение валидного почтового ящика
     email_reg = result_email[0]  # из запроса получаем валидный email
 
-
+    """ TRK-015 Проверка регистрации при использовании виртуального email'1secmail.com' с получением кода для входа на почту.
+        Записываем созданный email в файл settings."""
     def test_get_registration_valid(self, browser):
-        """Валидный вариант регистрации при использовании email и получения кода для входа на почту.
-         Используем виртуальный почтовый ящик '1secmail.com' и получаем данные через GET запросы.
-         Добавляем созданный email в файл settings."""
 
-        # Разделяем email на имя и домен для использования в следующих запросах:
+        #Разделяем email на имя и домен для использования в следующих запросах:
         sign_at = self.email_reg.find('@')
         mail_name = self.email_reg[0:sign_at]
         mail_domain = self.email_reg[sign_at + 1:len(self.email_reg)]
@@ -52,7 +51,7 @@ class TestRegistration:
         # Вводим фамилию:
         page.enter_lastname(fake_lastname)
         browser.implicitly_wait(5)
-        # Вводим адрес почты/Email:
+        # Вводим адрес почты/E-mail:
         page.enter_email(self.email_reg)
         browser.implicitly_wait(3)
         # Вводим пароль:
@@ -63,7 +62,7 @@ class TestRegistration:
         browser.implicitly_wait(3)
         # Нажимаем на кнопку 'Зарегистрироваться':
         page.btn_click()
-        time.sleep(30)  # подождём, пока на почту придёт письмо...
+        time.sleep(30)  # ожидаем, когда на почту поступит письмо
 
         """Проверяем почтовый ящик на наличие писем и достаём ID последнего письма"""
         result_id, status_id = RegEmail().get_id_letter(mail_name, mail_domain)
@@ -92,14 +91,14 @@ class TestRegistration:
             browser.implicitly_wait(5)
         browser.implicitly_wait(30)
 
-        """Проверяем, что регистрация пройдена и пользователь перенаправлен в личный кабинет"""
+        """Проверяем, что регистрация пройдена и пользователь перенаправлен на страницу с данными о пользователе"""
         assert page.get_relative_link() == '/account_b2c/page'
         time.sleep(10)
         page.driver.save_screenshot('reg.png')
 
         """При успешной регистрации, перезаписываем созданные имя пользователя, email и пароль в файл settings"""
         page.driver.save_screenshot('reg.png')
-        print('Регистрация прошла успешно!')
+        print('TRK-015 Регистрация прошла успешно!')
         print(f"{fake_firstname} {fake_lastname},\nВаш email: '{str(self.email_reg)}'\nВаш пароль: '{fake_password}'\n")
         with open(r"../pages/Settings.py", 'r', encoding='utf8') as file:
             lines = []
