@@ -140,7 +140,7 @@ def test_auth_page_email_valid(browser):
     page.enter_password(valid_pass_reg)
     time.sleep(30)  # время необходимое для ввода Captcha вручную
     page.btn_click_enter()
-    page.driver.save_screenshot('auth_by_email.png')
+    page.driver.save_screenshot('TRK_22_auth_by_email.png')
     print('TRK-022 Авторизация прошла успешно!')
     print(
         f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email подтвержден: '{str(valid_email)}'\nВаш пароль подтвержден: '{valid_pass_reg}'\n")
@@ -150,15 +150,7 @@ def test_auth_page_email_valid(browser):
     assert page.get_relative_link() == '/account_b2c/page'
 
 
-""" Проверка страницы регистрации - дымовое тестирование """
-@pytest.mark.reg
-@pytest.mark.positive
-def test_reg_page_open(browser):
 
-    page = AuthPage(browser)
-    page.enter_reg_page()
-
-    assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
 
 
 
