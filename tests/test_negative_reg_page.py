@@ -3,17 +3,17 @@ from pages.auth import *
 from pages.settings import *
 import time
 
-#TRK-014 Негативный сценарий регистрации на сайте, невалидный формат Имя,
-# в том числе с граничными значениями и XSS инъекциями.
+"""TRK-017 Негативный сценарий регистрации на сайте, невалидный формат Имя.
+ Использование тестирования анализа классов эквивалентности и XSS инъекции."""
 @pytest.mark.reg
 @pytest.mark.negatvie
 @pytest.mark.parametrize('firstname', ['', generate_string_rus(1), generate_string_rus(31),
                                        generate_string_rus(256), english_chars(),
                                        special_chars(), 78489, alternative_keyboard(),japanese_hieroglyph(),
                                        chinese_character(),safety_XSS(),XSS_admixture_HTML()],
-                         ids=['14-1) empty line', '14-2) one char', '14-3) 31 chars', '14-4) 256 chars', '14-5) english',
-                              '14-6) special', '14-7) number', '14-8) alternative_keyboard', '14-9) japanese_hieroglyph',
-                              '14-10) chinese_character','14-11) safety_XSS','14-12) XSS_admixture_HTML'])
+                         ids=['TRK-017-1) empty line', 'TRK-017-2) one char', 'TRK-017-3) 31 chars', 'TRK-017-4) 256 chars', 'TRK-017-5) english',
+                              'TRK-017-6) special', 'TRK-017-7) number', 'TRK-017-8) alternative_keyboard', 'TRK-017-9) japanese_hieroglyph',
+                              'TRK-017-10) chinese_character','TRK-017-11) safety_XSS','TRK-017-12) XSS_admixture_HTML'])
 
 def test_get_registration_invalid_format_firstname(browser, firstname):
     # Нажимаем на кнопку Зарегистрироваться:
@@ -46,8 +46,8 @@ def test_get_registration_invalid_format_firstname(browser, firstname):
     assert error_mess.text == 'Необходимо заполнить поле кириллицей. От 2 до 30 символов.'
     print('Необходимо заполнить поле кириллицей. От 2 до 30 символов.')
 
-#TRK-015 Негативный сценарий регистрации на сайте, невалидный формат фамилии,
-# в том числе с граничными значениями и XSS инъекциями.
+"""TRK-018 Негативный сценарий регистрации на сайте, невалидный формат Фамилия.
+ Использование тестирования анализа классов эквивалентности и XSS инъекции."""
 @pytest.mark.reg
 @pytest.mark.negatvie
 @pytest.mark.parametrize('lastname', ['', generate_string_rus(1), generate_string_rus(31),
@@ -55,12 +55,11 @@ def test_get_registration_invalid_format_firstname(browser, firstname):
                                        special_chars(), 78489, alternative_keyboard(),japanese_hieroglyph(),
                                        chinese_character(),safety_XSS(),XSS_admixture_HTML()],
 
-                         ids=['15-1) empty line', '15-2) one char', '15-3) 31 chars', '15-4) 256 chars', '15-5) english',
-                              '15-6) special', '15-7) number', '15-8) alternative_keyboard', '15-9) japanese_hieroglyph',
-                              '15-10) chinese_character','15-11) safety_XSS','15-12) XSS_admixture_HTML'])
+                         ids=['TRK-018-1) empty line', 'TRK-018-1) one char', 'TRK-018-3) 31 chars', 'TRK-018-4) 256 chars', 'TRK-018-5) english',
+                              'TRK-018-6) special', 'TRK-018-7) number', 'TRK-018-8) alternative_keyboard', 'TRK-018-9) japanese_hieroglyph',
+                              'TRK-018-10) chinese_character','TRK-018-11) safety_XSS','TRK-018-12) XSS_admixture_HTML'])
 
 def test_get_registration_invalid_format_lastname(browser, lastname):
-    """Негативные сценарии регистрации на сайте, невалидный формат фамилии"""
 
     # Нажимаем на кнопку Зарегистрироваться:
     page = AuthPage(browser)
