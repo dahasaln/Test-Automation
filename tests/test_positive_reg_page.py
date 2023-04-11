@@ -18,6 +18,9 @@ def test_reg_page_open(browser):
     print(f"TRK-015 Открыта страница Регистрация.\nCurrently  URL is: {browser.current_url}")
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
 
+
+""" TRK-016 Проверка регистрации при использовании виртуального email'1secmail.com' с получением кода для входа на почту.
+        Записываем созданный email в файл settings."""
 @pytest.mark.reg
 @pytest.mark.positive
 class TestRegistration:
@@ -26,8 +29,6 @@ class TestRegistration:
     result_email, status_email = RegEmail().get_api_email()  # запрос на получение валидного почтового ящика
     email_reg = result_email[0]  # из запроса получаем валидный email
 
-    """ TRK-015 Проверка регистрации при использовании виртуального email'1secmail.com' с получением кода для входа на почту.
-        Записываем созданный email в файл settings."""
     def test_get_registration_valid(self, browser):
 
         #Разделяем email на имя и домен для использования в следующих запросах:
@@ -84,7 +85,7 @@ class TestRegistration:
         assert status_code == 200, "status_code error"
         assert reg_code != '', "reg_code != [] error"
 
-        reg_digit = [int(char) for char in reg_code]
+        [int(char) for char in reg_code]
         browser.implicitly_wait(30)
         for i in range(0, 6):
             browser.find_elements(By.XPATH, '//input[@inputmode="numeric"]')[i].send_keys(reg_code[i])
@@ -98,7 +99,7 @@ class TestRegistration:
 
         """При успешной регистрации, перезаписываем созданные имя пользователя, email и пароль в файл settings"""
         page.driver.save_screenshot('reg.png')
-        print('TRK-015 Регистрация прошла успешно!')
+        print('TRK-016 Регистрация прошла успешно!')
         print(f"{fake_firstname} {fake_lastname},\nВаш email: '{str(self.email_reg)}'\nВаш пароль: '{fake_password}'\n")
         with open(r"../pages/Settings.py", 'r', encoding='utf8') as file:
             lines = []
