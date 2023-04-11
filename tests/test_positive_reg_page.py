@@ -12,7 +12,6 @@ from pages.settings import fake_firstname, fake_lastname, fake_password
 @pytest.mark.positive
 
 def test_reg_page_open(browser):
-
     page = AuthPage(browser)
     page.enter_reg_page()
     print(f"TRK-015 Открыта страница Регистрация.\nCurrently  URL is: {browser.current_url}")
@@ -24,8 +23,8 @@ def test_reg_page_open(browser):
 @pytest.mark.reg
 @pytest.mark.positive
 class TestRegistration:
-    """Проверка регистрации на сайте"""
-    # Выносим данные в тело класса для доступа к значениям переменных из всех функций класса:
+    #Проверка регистрации на сайте
+    #Определяем данные в тело класса для доступа к значениям переменных из всех функций класса:
     result_email, status_email = RegEmail().get_api_email()  # запрос на получение валидного почтового ящика
     email_reg = result_email[0]  # из запроса получаем валидный email
 
@@ -95,10 +94,10 @@ class TestRegistration:
         """Проверяем, что регистрация пройдена и пользователь перенаправлен на страницу с данными о пользователе"""
         assert page.get_relative_link() == '/account_b2c/page'
         time.sleep(10)
-        page.driver.save_screenshot('reg.png')
+        page.driver.save_screenshot('TRK_016_reg.png')
 
         """При успешной регистрации, перезаписываем созданные имя пользователя, email и пароль в файл settings"""
-        page.driver.save_screenshot('reg.png')
+        page.driver.save_screenshot('TRK_016_reg.png')
         print('TRK-016 Регистрация прошла успешно!')
         print(f"{fake_firstname} {fake_lastname},\nВаш email: '{str(self.email_reg)}'\nВаш пароль: '{fake_password}'\n")
         with open(r"../pages/Settings.py", 'r', encoding='utf8') as file:
