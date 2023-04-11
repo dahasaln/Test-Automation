@@ -45,7 +45,7 @@ def test_get_registration_invalid_format_firstname(browser, firstname):
 
     assert error_mess.text == 'Необходимо заполнить поле кириллицей. От 2 до 30 символов.'
     print('Необходимо заполнить поле кириллицей. От 2 до 30 символов.')
-
+#______________________________________________________________________________________________
 """TRK-018 Негативный сценарий регистрации на сайте, невалидный формат Фамилия.
  Использование тестирования анализа классов эквивалентности и XSS инъекции."""
 @pytest.mark.reg
@@ -90,16 +90,15 @@ def test_get_registration_invalid_format_lastname(browser, lastname):
     assert error_mess.text == 'Необходимо заполнить поле кириллицей. От 2 до 30 символов.'
     print('Необходимо заполнить поле кириллицей. От 2 до 30 символов.')
 
-
-#TRK-016 Негативный сценарий регистрации на сайте, невалидный формат номера телефона.
+#______________________________________________________________________________________________
+"""TRK-019 Проверка Регистрации на странице, невалидный формат номера Телефона.
+ Использование тестирования анализа классов эквивалентности."""
 @pytest.mark.reg
 @pytest.mark.negatvie
 @pytest.mark.parametrize('phone', ['', 7, 7777777777, generate_string_rus(11), english_chars(),special_chars()],
-                         ids=['16-1) empty line', '16-2) one digit', '16-3) digits', '16-4) string_rus', '16-5) english_chars',
-                              '16-6)special_chars'])
+                         ids=['TRK-019-1) empty line', 'TRK-019-2) one digit', 'TRK-019-3) 10_digits', 'TRK-019-4) string_rus', 'TRK-019-5) english_chars',
+                              'TRK-019-6) special_chars'])
 def test_get_registration_invalid_format_phone(browser, phone):
-    '''Негативные сценарии регистрации на сайте, невалидный формат номера телефона'''
-
     # Нажимаем на кнопку Зарегистрироваться:
     page = AuthPage(browser)
     page.enter_reg_page()
@@ -113,7 +112,7 @@ def test_get_registration_invalid_format_phone(browser, phone):
     # Вводим фамилию:
     page.enter_lastname(fake_lastname)
     browser.implicitly_wait(5)
-    # Вводим адрес почты/Email:
+    # Вводим адрес почты/E-mail:
     page.enter_email(phone)
     browser.implicitly_wait(3)
     # Вводим пароль:
@@ -131,15 +130,15 @@ def test_get_registration_invalid_format_phone(browser, phone):
     print('Введите телефон в формате +7ХХХХХХХХХХ или +375XXXXXXXXX, ' 
                               '\nили email в формате example@email.ru')
 
-#TRK-017 Негативный сценарий регистрации на сайте, невалидный формат E-mail.
+#__________________________________________________________________________________________________
+"""TRK-020 Проверка Регистрации на странице, невалидный формат E-mail."""
 @pytest.mark.reg
 @pytest.mark.negatvie
 @pytest.mark.parametrize('email', ['', '@', '@.', '.', generate_string_rus(20), f'{russian_chars()}@mail.ru',
                                     77777],
-                         ids=['17-1) empty line', '17-2) at', '17-3) at point', '17-4) point', '17-5) string', '17-6) russian',
-                               '17-7) digits'])
+                         ids=['TRK-020-1) empty line', 'TRK-020-2) at', 'TRK-020-3) at point', 'TRK-020-4) point', 'TRK-020-5) string', 'TRK-020-6) russian',
+                               'TRK-020-7) digits'])
 def test_get_registration_invalid_format_email(browser, email):
-    """Негативные сценарии регистрации на сайте, невалидный формат почты"""
     # Нажимаем на кнопку Зарегистрироваться:
     page = AuthPage(browser)
     page.enter_reg_page()
@@ -153,7 +152,7 @@ def test_get_registration_invalid_format_email(browser, email):
     # Вводим фамилию:
     page.enter_lastname(fake_lastname)
     browser.implicitly_wait(5)
-    # Вводим адрес почты/Email:
+    # Вводим адрес почты/E-mail:
     page.enter_email(email)
     browser.implicitly_wait(3)
     # Вводим пароль:
@@ -170,15 +169,13 @@ def test_get_registration_invalid_format_email(browser, email):
                               'или email в формате example@email.ru'
     print('Введите телефон в формате +7ХХХХХХХХХХ или +375XXXXXXXXX, ' 
                               '\nили email в формате example@email.ru')
-
-#TRK-018 Проверка, Регистрация в системе: существующий аккаунт по почте
+#_________________________________________________________________________________
+"""TRK-021 Проверка, Регистрация в системе: существующий аккаунт по E-mail"""
 @pytest.mark.reg
 @pytest.mark.negatvie
 @pytest.mark.parametrize('address', [ valid_email],
                          ids=['living email'])
 def test_get_registration_living_account(browser, address):
-    """Негативные сценарии регистрации на сайте, проверка на существование аккаунта по почте"""
-
     # Нажимаем на кнопку Зарегистрироваться:
     page = AuthPage(browser)
     page.enter_reg_page()
@@ -203,19 +200,16 @@ def test_get_registration_living_account(browser, address):
     browser.implicitly_wait(3)
     # Нажимаем на кнопку 'Зарегистрироваться':
     page.btn_click()
-
+    time.sleep(2)
     card_modal_title = browser.find_element(*RegLocators.REG_CARD_MODAL)
 
     assert card_modal_title.text == 'Учётная запись уже существует'
-    print('TRK-018 Учётная запись уже существует')
-
-#TRK-019 Проверка, Регистрация в системе: поле пароль и подтверждение пароля не совпадают
+    print('TRK-021 Учётная запись уже существует')
+#_______________________________________________________________________________________
+"""TRK-022 Проверка, Регистрация в системе: поле пароль и подтверждение пароля не совпадают"""
 @pytest.mark.reg
 @pytest.mark.negatvie
 def test_get_registration_diff_pass_and_pass_conf(browser):
-    """Негативные сценарии регистрации на сайте, проверка на совпадение паролей в
-    полях ввода 'Пароль' и 'Подтверждение пароля'."""
-
     page = AuthPage(browser)
     page.enter_reg_page()
     browser.implicitly_wait(2)
@@ -242,4 +236,4 @@ def test_get_registration_diff_pass_and_pass_conf(browser):
     error_mess = browser.find_element(*AuthLocators.AUTH_MESS_ERROR)
     time.sleep(5)
     assert error_mess.text == 'Пароли не совпадают'
-    print('TRK-019 Пароли не совпадают')
+    print('TRK-022 Пароли не совпадают')
