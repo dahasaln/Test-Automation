@@ -133,7 +133,7 @@ def test_jump_to_links_YA(browser):
     assert browser.find_element(*AuthLocators.AUTH_LOG_YA).text == 'Войдите с Яндекс ID'
 
 
-"""TRK-022 Проверка Авторизации по почте и паролю. """
+"""TRK-023 Проверка Авторизации по почте и паролю. """
 def test_auth_page_email_valid(browser):
     page = AuthPage(browser)
     page.enter_username(valid_email)
@@ -141,7 +141,7 @@ def test_auth_page_email_valid(browser):
     time.sleep(30)  # время необходимое для ввода Captcha вручную
     page.btn_click_enter()
     page.driver.save_screenshot('TRK_22_auth_by_email.png')
-    print('TRK-022 Авторизация прошла успешно!')
+    print('TRK-023 Авторизация прошла успешно!')
     print(
         f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email подтвержден: '{str(valid_email)}'\nВаш пароль подтвержден: '{valid_pass_reg}'\n")
     with open('my_cookies.txt', 'wb') as cookies:
