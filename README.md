@@ -4,8 +4,8 @@
 - ручные и автоматизированные тесты
 - разбиение на классы эквивалентности
 - анализ граничных значений
-[<img src="https://img.shields.io/badge/Чек лист-3914AF?style=for-the-badge&logo=/Чек лист&logoColor=ЦВЕТ ЛОГОТИПА"/>](https://docs.google.com/spreadsheets/d/1KOnp581oWDApILyWZXfkm6Y6xhpEp1Gr/edit?usp=sharing&ouid=116953298783582314603&rtpof=true&sd=true)
-### [чек-лист/тест-кейсы/баг-репорты](https://1drv.ms/x/s!Al0mMJVTqsVNgwzQIcgb8DBeCcKa?e=uMrYMa)
+--------------------------
+### [<img src="https://img.shields.io/badge/Чек лист/Тест кейс/Баг репорт-3914AF?style=for-the-badge&logo=/Чек лист/Тест кейс/Баг репорт&logoColor=ЦВЕТ ЛОГОТИПА"/>](https://docs.google.com/spreadsheets/d/1KOnp581oWDApILyWZXfkm6Y6xhpEp1Gr/edit?usp=sharing&ouid=116953298783582314603&rtpof=true&sd=true)
 ### Тесты настроены на запуск через Run! 
 ### Страница восстановления пароля (как позитивные, так и негативные тесты) требует РУЧНОЙ ВВОД СИМВОЛОВ С КАРТИНКИ !!!
 
