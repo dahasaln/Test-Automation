@@ -5,8 +5,6 @@ from pages.auth import *
 from selenium.webdriver.common.by import By
 from pages.settings import fake_firstname, fake_lastname, fake_password
 
-
-
 """ TRK-015 Проверка открытия страницы Регистрация - дымовое тестирование """
 @pytest.mark.reg
 @pytest.mark.positive
@@ -16,6 +14,8 @@ def test_reg_page_open(browser):
     page.enter_reg_page()
     print(f"TRK-015 Открыта страница Регистрация.\nCurrently  URL is: {browser.current_url}")
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/registration'
+
+
 
 
 """ TRK-016 Проверка регистрации при использовании виртуального email'1secmail.com' с получением кода для входа на почту.
