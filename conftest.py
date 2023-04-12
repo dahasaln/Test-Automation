@@ -11,7 +11,7 @@ options.add_experimental_option("excludeSwitches", ["enable-automation"]) #от�
 options.add_experimental_option('useAutomationExtension', False) #отключение режима webdriver
 options.add_argument("--disable-blink-features=AutomationControlled") #отключение режима webdriver
 
-# Фикстура с функцией открытия и закрытия браузера
+"""Фикстура с функцией открытия и закрытия браузера"""
 @pytest.fixture(scope="session")
 def browser():
     print("\nstart browser for test...")
