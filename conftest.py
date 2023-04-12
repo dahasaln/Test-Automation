@@ -6,7 +6,7 @@ EXE_PATH = r'..\chromedriver.exe'
 options = Options()
 # Изменение user-agent
 options.add_argument("user-agent=Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0")
-# Отключим webdriver:
+# Отключим webdriver (работает только в данном варианте):
 options.add_experimental_option("excludeSwitches", ["enable-automation"]) #отключение режима webdriver
 options.add_experimental_option('useAutomationExtension', False) #отключение режима webdriver
 options.add_argument("--disable-blink-features=AutomationControlled") #отключение режима webdriver
