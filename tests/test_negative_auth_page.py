@@ -54,16 +54,16 @@ def test_auth_page_phone_empty_username(browser):
     page.enter_password(valid_pass_reg)
     browser.implicitly_wait(10)
     error_mess = browser.find_element(*AuthLocators.AUTH_SPACE_ERROR)
+    time.sleep(10)
     assert error_mess.text == 'Введите номер телефона'
-    print('Тест пройден!')
-    print(f"\nВведите номер телефона")
+    print(f"TRK-026 Тест пройден!\nВведите номер телефона")
 
 
 """TRK-027 Проверка авторизации по номеру телефона и паролю, неверный формат телефона"""
 @pytest.mark.auth
 @pytest.mark.negative
 @pytest.mark.parametrize('username', [1, 999999999,],
-                         ids=['one digit', '9 digits'])
+                         ids=['TRK-027-1) one digit', 'TRK-027-2) 9 digits'])
 def test_auth_page_invalid_username(browser, username):
     page = AuthPage(browser)
     page.enter_username(username)
@@ -72,5 +72,5 @@ def test_auth_page_invalid_username(browser, username):
     browser.implicitly_wait(10)
     error_mess = browser.find_element(*AuthLocators.AUTH_MESS_ERROR)
     assert error_mess.text == 'Неверный формат телефона'
-    print('Тест пройден!')
-    print(f"\nНеверный формат телефона")
+    print(f'Неверный формат телефона')
+
