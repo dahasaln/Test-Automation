@@ -2,8 +2,8 @@ import os
 from dotenv import load_dotenv
 from faker import Faker
 import string
-load_dotenv()
 
+load_dotenv()
 
 """Фейковые данные для авторизации в системе"""
 fake_ru = Faker('ru_RU')#параметры с русским алфавитом
@@ -18,10 +18,10 @@ fake_login = fake.user_name()
 invalid_ls = '352010008899'
 valid_password = os.getenv('password')
 
-valid_firstname_reg = 'Валентина'
-valid_lastname_reg = 'Захаров'
-valid_email = '1rhky4l3@bheps.com'
-valid_pass_reg = 'Ow9Mu#m_*^'
+valid_firstname_reg = 'Артем'
+valid_lastname_reg = 'Кондратьева'
+valid_email = 'kutqms9uh1y@wuuvo.com'
+valid_pass_reg = 'q+sF5BbjyA'
 
 def generate_string_rus(n):
     return 'я' * n
