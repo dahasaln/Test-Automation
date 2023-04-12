@@ -1,9 +1,8 @@
-import ast
-import pickle
-import time
 import pytest
 from pages.auth import *
 from pages.settings import *
+import time
+
 
 """TRK-024 Проверка авторизации по E-mail и паролю,в системе: неверный E-mail"""
 def test_auth_page_fake_email(browser):
