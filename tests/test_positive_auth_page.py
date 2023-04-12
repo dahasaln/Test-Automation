@@ -45,7 +45,7 @@ def test_switching_tab(browser):
 @pytest.mark.auth
 @pytest.mark.positive
 @pytest.mark.parametrize('username', ['+79167777777', valid_email, 'fake_login', '352010008899'],
-                         ids=['phone', 'email', 'login', 'ls'])
+                         ids=['TRK-009-1) phone', 'TRK-009-2) E-mail', 'TRK-009-3) login', 'TRK-009-4) ls'])
 def test_active_tab(browser, username):
 
     page  = AuthPage(browser)
@@ -56,19 +56,19 @@ def test_active_tab(browser, username):
     if username == '+79167777777':
         time.sleep(2)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Телефон'
-        print('TRK-009-1')
+        print('TRK-009-1 Телефон')
     elif username == valid_email:
         time.sleep(2)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Почта'
-        print('TRK-009-2')
+        print('TRK-009-2 Почта')
     elif username == 'fake_login':
         time.sleep(2)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Логин'
-        print('TRK-009-3')
+        print('TRK-009-3 Логин')
     else:
         time.sleep(2)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Лицевой счёт'
-        print('TRK-009-4')
+        print('TRK-009-4 Лицевой счёт')
 
 
 """TRK-010 Проверка перехода по ссылкам социальных сетей VK"""
@@ -126,7 +126,8 @@ def test_jump_to_links_YA(browser):
     print(f"\nCurrently before transition URL is: {browser.current_url}")
     browser.find_element(*AuthLocators.AUTH_BTN_YA).click()
     time.sleep(2)
-    browser.find_element(*AuthLocators.AUTH_BTN_YA).click()# Нужно кликать 2 раза. dblclick- не помогает.
+    browser.find_element(*AuthLocators.AUTH_BTN_YA).click()# Лучше кликать 2 раза. dblclick- не помогает.
+                    # Вручную, как правило работает с 1ого клика, но не всегда! (в баг не стала вносить!?)
     time.sleep(2)
     print(f"\nCurrently after transition URL is: {browser.current_url}")
     logo = browser.find_element(*AuthLocators.AUTH_LOG_YA)
