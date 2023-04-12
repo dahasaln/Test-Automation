@@ -13,7 +13,7 @@ def test_auth_page_open(browser):
     print(f"TRK-001 \nCurrently  URL is: {browser.current_url}")
     assert page.get_relative_link() == '/auth/realms/b2c/protocol/openid-connect/auth'
 
-    #Проверка отключения user-agent и webdriver
+    #Подтверждение отключения user-agent и webdriver
     browser.get("https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html")
     time.sleep(8)
 
