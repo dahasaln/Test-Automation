@@ -1,9 +1,5 @@
-import os
-from dotenv import load_dotenv
 from faker import Faker
 import string
-
-load_dotenv()
 
 """Фейковые данные для авторизации в системе"""
 fake_ru = Faker('ru_RU')#параметры с русским алфавитом
@@ -16,7 +12,7 @@ fake_email = fake.email()
 fake_login = fake.user_name()
 
 invalid_ls = '352010008899'
-valid_password = os.getenv('password')
+
 
 valid_firstname_reg = 'Артем'
 valid_lastname_reg = 'Кондратьева'
@@ -47,7 +43,7 @@ def chinese_character():# Китайсике иероглифы
 def XSS_admixture_HTML(): #Тестирование на безопасность XSS примесь HTML
     return '<IMG src="#">'
 def safety_XSS(): #Тестирование на безопасность XSS инъекция
-    return    '<script>alert("Поле input уязвимо!")</script>|'
+    return '<script>alert("Поле input уязвимо!")</script>|'
 
 
 
