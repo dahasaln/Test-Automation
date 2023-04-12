@@ -4,4 +4,5 @@
 - ручные и автоматизированные тесты
 - разбиение на классы эквивалентности
 - анализ граничных значений
+[<img src="https://img.shields.io/badge/Postman-3914AF?style=for-the-badge&logo=Чек лист&logoColor=ЦВЕТ ЛОГОТИПА"/>](https://b2c.passport.rt.ru)
 
