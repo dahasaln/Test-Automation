@@ -4,6 +4,7 @@ import time
 from pages.locators import AuthLocators
 from pages.auth import AuthPage
 from pages.settings import valid_email, valid_pass_reg,valid_firstname_reg, valid_lastname_reg
+
 """ TRK-001 Проверка страницы авторизации - дымовое тестирование """
 @pytest.mark.reg
 @pytest.mark.positive
@@ -11,6 +12,10 @@ def test_auth_page_open(browser):
     page = AuthPage(browser)
     print(f"TRK-001 \nCurrently  URL is: {browser.current_url}")
     assert page.get_relative_link() == '/auth/realms/b2c/protocol/openid-connect/auth'
+
+    #Проверка отключения user-agent и webdriver
+    browser.get("https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html")
+    time.sleep(8)
 
 """TRK-005,TRK-006,TRK-007,TRK-008 Проверка кликабельности табов тел/почта/логин/лицевой счет"""
 @pytest.mark.auth
@@ -34,7 +39,6 @@ def test_switching_tab(browser):
     print('TRK-007')
     assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_LS).text == 'Лицевой счёт'
     print('TRK-008')
-
 
 
 """TRK-009-1,TRK-009-2,TRK-009-3,TRK-009-4 Проверка автоматического переключения табов тел/почта/логин/лицевой счет"""
@@ -65,8 +69,6 @@ def test_active_tab(browser, username):
         time.sleep(2)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Лицевой счёт'
         print('TRK-009-4')
-
-
 
 
 """TRK-010 Проверка перехода по ссылкам социальных сетей VK"""
@@ -140,7 +142,7 @@ def test_auth_page_email_valid(browser):
     page.enter_password(valid_pass_reg)
     time.sleep(30)  # время необходимое для ввода Captcha вручную
     page.btn_click_enter()
-    page.driver.save_screenshot('TRK_22_auth_by_email.png')
+    page.driver.save_screenshot('TRK_023_auth_by_email.png')
     print('TRK-023 Авторизация прошла успешно!')
     print(
         f"{valid_firstname_reg} {valid_lastname_reg},\nВаш email подтвержден: '{str(valid_email)}'\nВаш пароль подтвержден: '{valid_pass_reg}'\n")
