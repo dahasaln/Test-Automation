@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
 
-
+"""Локаторы страницы авторизации"""
 class AuthLocators:
-    """Локаторы страницы авторизации"""
+
     AUTH_USERNAME = (By.ID, 'username')#
     AUTH_PASS = (By.ID, 'password')
     AUTH_BTN = (By.ID, 'kc-login')
@@ -26,19 +26,12 @@ class AuthLocators:
     AUTH_BTN_YA =(By.ID,'oidc_ya')
     AUTH_LOG_YA = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div/div/div[2]/div[3]/div/div/div/h1/span')
     AUTH_FORGOT_PASSWORD = (By.ID,'forgot_password')  #Забыл пароль
-    AUTH_TERMS_OF_USE = (By.XPATH,'//*[@id="page-right"]/div/div/div/form/div[5]/a')  #Пользовательское соглашение
-    AUTH_Public_offer = (By.XPATH,'//*[@id="title"]/h1')
     AUTH_HEADING = (By.XPATH, '//*[@id="page-right"]/div/div/h1')
     AUTH_ACTIVE_TAB = (By.CSS_SELECTOR, '.rt-tab.rt-tab--small.rt-tab--active')
 
 
-
-
-
-
-
-class RegLocators:
     """Локаторы страницы регистрации"""
+class RegLocators:
     REG_FIRSTNAME = (By.XPATH, "//input[@name='firstName']")
     REG_LASTNAME = (By.XPATH, "//input[@name='lastName']")
     REG_REGION = (By.XPATH, "//input[@autocomplete='new-password']"[0])
@@ -49,8 +42,10 @@ class RegLocators:
     REG_CARD_MODAL = (By.XPATH, "//h2[@class='card-modal__title']")
 
 
-class NewPassLocators:
+
+
     """Локаторы страницы восстановления пароля"""
+class NewPassLocators:
     NEW_PASS_ADDRESS = (By.ID, 'username')
     NEW_PASS_BTN_CONTINUE = (By.ID, 'reset')
     NEW_PASS_ONETIME_CODE = (By.XPATH, '//input[@inputmode="numeric"]')
