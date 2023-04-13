@@ -7,7 +7,7 @@
 * *Окружение*: Windows 11 Pro Версия:21H2\Google 
 * *Браузер*: Chrom 109.0.5414.120, (64 бит)
 ________________________________________________
-<img align="right" alt="GIF" src="https://github.com/dahasaln/Test-Automation/blob/master/200w%20(1).webp" width="300" height="300" />
+<img align="right" alt="GIF" src="https://github.com/dahasaln/Test-Automation/blob/master/My_Gif.webp" width="300" height="300" />
 
 
 
