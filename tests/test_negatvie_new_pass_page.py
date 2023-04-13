@@ -6,6 +6,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 
 
+
 """TRK-030 Проверка восстановления пароля по почте - негативные сценарии.
     В начале теста в поле  Символы требуется одноразовый ручной ввод CAPTCHA. """
 
@@ -19,10 +20,10 @@ def test_forgot_password_page(browser):
 
     page = NewPassPage(browser)
     page.enter_username(valid_email)
-    time.sleep(20)  # время на ввод капчи
+    time.sleep(20)  # время на ввод CAPTCHA
     page.btn_click_continue()
 
-    time.sleep(30)  # подождём, пока на почту придёт письмо...
+    time.sleep(30)  # ожидаем, когда на почту поступит письмо
 
     """Проверяем почтовый ящик на наличие писем и достаём ID последнего письма"""
     result_id, status_id = RegEmail().get_id_letter(mail_name, mail_domain)
