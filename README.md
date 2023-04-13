@@ -16,7 +16,7 @@ ________________________________________________
 ## [<img src="https://img.shields.io/badge/Чек лист/Тест кейс/Баг репорт-3914AF?style=for-the-badge&logo=/Чек лист/Тест кейс/Баг репорт&logoColor=ЦВЕТ ЛОГОТИПА"/>](https://docs.google.com/spreadsheets/d/1KOnp581oWDApILyWZXfkm6Y6xhpEp1Gr/edit?usp=sharing&ouid=116953298783582314603&rtpof=true&sd=true):four_leaf_clover:
 ----------------------------------------------------------
 
-###  В корне проекта содержутся следующие файлы :four_leaf_clover:
+###  В корне проекта содержатся следующие файлы :four_leaf_clover:
 Файл conftest.py:
 * в данном файле находится фикстура с функцией открытия и закрытия браузера 
 * для создания виртуального Пользователя используется код "отключения" webdriver, замена user-agent
