@@ -1,5 +1,3 @@
- <img align="right" alt="GIF" src="https://github.com/arsentieva/arsentieva/blob/main/code.gif?raw=true" width="500" height="320" />
-
 ## *28.1. Итоговый проект по автомтизации тестирования* :four_leaf_clover:
 ## *с использованием* PyTest и Selenium 
 #### INTQAP-1034
@@ -9,6 +7,10 @@
 * *Окружение*: Windows 11 Pro Версия:21H2\Google 
 * *Браузер*: Chrom 109.0.5414.120, (64 бит)
 ________________________________________________
+<img align="right" alt="GIF" src="https://github.com/dahasaln/Test-Automation/blob/master/200w%20(1).webp" width="300" height="300" />
+
+
+
 ### *Для тестирования объекта были использованы*:
 ### :white_check_mark: автоматизированные и ручные тесты
 ### :white_check_mark: разбиение на классы эквивалентности
