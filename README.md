@@ -1,3 +1,4 @@
+<img align="right" alt="GIF" src="https://github.com/arsentieva/arsentieva/blob/main/code.gif?raw=true" width="500" height="320" />
 ## *28.1. Итоговый проект по автомтизации тестирования* :four_leaf_clover:
 ## *с использованием* PyTest и Selenium 
 #### INTQAP-1034
