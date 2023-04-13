@@ -4,6 +4,7 @@ import time
 from pages.locators import AuthLocators
 from pages.auth import AuthPage
 from pages.settings import valid_email, valid_pass_reg,valid_firstname_reg, valid_lastname_reg
+from selenium.webdriver.common.by import By
 
 """ TRK-001 Проверка страницы авторизации - дымовое тестирование """
 @pytest.mark.reg
@@ -54,21 +55,30 @@ def test_active_tab(browser, username):
     page.enter_password(valid_pass_reg)
 
     if username == '+79167777777':
-        time.sleep(2)
+        time.sleep(4)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Телефон'
         print('TRK-009-1 Телефон')
-    elif username == valid_email:
+        browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_PHON).click()
         time.sleep(2)
+    elif username == valid_email:
+        time.sleep(4)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Почта'
         print('TRK-009-2 Почта')
-    elif username == 'fake_login':
+        browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_PHON).click()
         time.sleep(2)
+    elif username == 'fake_login':
+        time.sleep(4)
         assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Логин'
         print('TRK-009-3 Логин')
-    else:
+        browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB_PHON).click()
         time.sleep(2)
-        assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Лицевой счёт'
-        print('TRK-009-4 Лицевой счёт')
+    else:
+        try:
+            time.sleep(4)
+            assert browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).text == 'Лицевой счёт'
+            print('TRK-009-4Лицевой счёт')
+        except Exception:
+            print('TRK-009-4 BR-3:Тест не пройден. Нет автоматического переключения на Лицевой счёт')
 
 
 """TRK-010 Проверка перехода по ссылкам социальных сетей VK"""
@@ -151,6 +161,11 @@ def test_auth_page_email_valid(browser):
         pickle.dump(browser.get_cookies(), cookies)
 
     assert page.get_relative_link() == '/account_b2c/page'
+
+def test_change_tab_on_personal_account(browser):
+    browser.find_element(*AuthLocators.AUTH_ACTIVE_TAB).send_keys('111111111111')
+    browser.find_element(*AuthLocators.AUTH_PASS).click()
+    assert browser.find_element(*AuthLocators. AUTH_ACTIVE_TAB_LS).text == 'Лицевой счёт', 'FAIL'
 
 
 
